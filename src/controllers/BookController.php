@@ -13,8 +13,14 @@ class BookController
 
     public function index(): void
     {
-        $books = $this->bookManager->getAllBooks();
+      $search = $_GET['search'] ?? '';
 
-        require __DIR__ . '/../views/books.php';
-    }
+if ($search !== '') {
+    $books = $this->bookManager->searchBooks($search);
+} else {
+    $books = $this->bookManager->getAllBooks();
+}
+
+require __DIR__ . '/../views/books.php';  
+}
 }

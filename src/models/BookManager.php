@@ -42,6 +42,26 @@ class BookManager
     return $books;
 }
 
+public function searchBooks(string $search): array
+{
+    $query = $this->pdo->prepare(
+        'SELECT * FROM books
+         WHERE title LIKE :search
+         ORDER BY created_at DESC'
+    );
+
+    $query->execute([
+        'search' => '%' . $search . '%'
+    ]);
+
+    $books = [];
+
+    foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $data) {
+        $books[] = $this->createBook($data);
+    }
+
+    return $books;
+}
 
     private function createBook(array $data): Book
     {
