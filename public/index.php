@@ -2,6 +2,14 @@
 
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../src/controllers/HomeController.php';
+require_once __DIR__ . '/../src/controllers/BookController.php';
 
-$controller = new HomeController($pdo);
-$controller->index();
+$page = $_GET['page'] ?? 'home';
+
+if ($page === 'books') {
+    $controller = new BookController($pdo);
+    $controller->index();
+} else {
+    $controller = new HomeController($pdo);
+    $controller->index();
+}

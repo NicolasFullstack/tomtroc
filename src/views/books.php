@@ -1,13 +1,11 @@
 <?php require __DIR__ . '/../../templates/header.php'; ?>
 
-<h1>TomTroc</h1>
-
-<h2>Les derniers livres ajoutés</h2>
+<h1>Nos livres à l'échange</h1>
 
 <?php foreach ($books as $book): ?>
 
     <article>
-        <h3><?= htmlspecialchars($book->getTitle()) ?></h3>
+        <h2><?= htmlspecialchars($book->getTitle()) ?></h2>
         <p><?= htmlspecialchars($book->getAuthor()) ?></p>
     </article>
 

@@ -26,6 +26,23 @@ class BookManager
         return $books;
     }
 
+
+    public function getAllBooks(): array
+{
+    $query = $this->pdo->query(
+        'SELECT * FROM books ORDER BY created_at DESC'
+    );
+
+    $books = [];
+
+    foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $data) {
+        $books[] = $this->createBook($data);
+    }
+
+    return $books;
+}
+
+
     private function createBook(array $data): Book
     {
         $book = new Book();
