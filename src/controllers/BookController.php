@@ -23,4 +23,18 @@ if ($search !== '') {
 
 require __DIR__ . '/../views/books.php';  
 }
+
+public function show(): void
+{
+    $id = (int) ($_GET['id'] ?? 0);
+
+    $book = $this->bookManager->getBookById($id);
+
+    if ($book === null) {
+        echo 'Livre introuvable.';
+        return;
+    }
+
+    require __DIR__ . '/../views/book.php';
+}
 }

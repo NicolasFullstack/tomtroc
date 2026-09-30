@@ -20,9 +20,16 @@
 <?php foreach ($books as $book): ?>
 
     <article>
+
+    <a href="index.php?page=book&id=<?= $book->getId() ?>">
+
         <h2><?= htmlspecialchars($book->getTitle()) ?></h2>
-        <p><?= htmlspecialchars($book->getAuthor()) ?></p>
-    </article>
+
+    </a>
+
+    <p><?= htmlspecialchars($book->getAuthor()) ?></p>
+
+</article>
 
 <?php endforeach; ?>
 

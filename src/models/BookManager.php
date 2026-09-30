@@ -78,4 +78,24 @@ public function searchBooks(string $search): array
 
         return $book;
     }
+
+public function getBookById(int $id): ?Book
+{
+    $query = $this->pdo->prepare(
+        'SELECT * FROM books WHERE id = :id'
+    );
+
+    $query->execute([
+        'id' => $id
+    ]);
+
+    $data = $query->fetch(PDO::FETCH_ASSOC);
+
+    if (!$data) {
+        return null;
+    }
+
+    return $this->createBook($data);
+}
+
 }
