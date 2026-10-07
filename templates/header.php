@@ -15,10 +15,12 @@
 
     <?php if (isset($_SESSION['user_id'])): ?>
 
-        <span>
-            <?= htmlspecialchars($_SESSION['pseudo']) ?>
-        </span>
-
+        <a href="index.php?page=account">
+    <?= htmlspecialchars($_SESSION['pseudo']) ?>
+</a>
+<a href="index.php?page=inbox">
+    Messagerie
+</a>
         <a href="index.php?page=logout">Déconnexion</a>
 
     <?php else: ?>

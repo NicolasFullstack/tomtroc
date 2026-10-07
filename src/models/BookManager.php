@@ -63,6 +63,61 @@ public function searchBooks(string $search): array
     return $books;
 }
 
+public function getBooksByUserId(int $userId): array
+{
+    $query = $this->pdo->prepare(
+        'SELECT * FROM books
+         WHERE user_id = :user_id
+         ORDER BY created_at DESC'
+    );
+
+    $query->execute([
+        'user_id' => $userId
+    ]);
+
+    $books = [];
+
+    foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $data) {
+        $books[] = $this->createBook($data);
+    }
+
+    return $books;
+}
+
+public function addBook(
+    int $userId,
+    string $title,
+    string $author,
+    ?string $description
+): bool
+{
+    $query = $this->pdo->prepare(
+        'INSERT INTO books (user_id, title, author, description)
+         VALUES (:user_id, :title, :author, :description)'
+    );
+
+    return $query->execute([
+        'user_id' => $userId,
+        'title' => $title,
+        'author' => $author,
+        'description' => $description
+    ]);
+}
+
+public function deleteBook(int $id, int $userId): bool
+{
+    $query = $this->pdo->prepare(
+        'DELETE FROM books
+         WHERE id = :id
+         AND user_id = :user_id'
+    );
+
+    return $query->execute([
+        'id' => $id,
+        'user_id' => $userId
+    ]);
+}
+
     private function createBook(array $data): Book
     {
         $book = new Book();
@@ -96,6 +151,35 @@ public function getBookById(int $id): ?Book
     }
 
     return $this->createBook($data);
+}
+
+public function updateBook(
+    int $id,
+    int $userId,
+    string $title,
+    string $author,
+    ?string $description,
+    bool $available
+): bool
+{
+    $query = $this->pdo->prepare(
+        'UPDATE books
+         SET title = :title,
+             author = :author,
+             description = :description,
+             available = :available
+         WHERE id = :id
+         AND user_id = :user_id'
+    );
+
+    return $query->execute([
+        'id' => $id,
+        'user_id' => $userId,
+        'title' => $title,
+        'author' => $author,
+        'description' => $description,
+        'available' => $available
+    ]);
 }
 
 }

@@ -8,6 +8,13 @@
         Par <?= htmlspecialchars($book->getAuthor()) ?>
     </p>
 
+<p>
+    Proposé par :
+    <a href="index.php?page=profile&id=<?= $book->getUserId() ?>">
+        Voir le profil
+    </a>
+</p>
+
     <?php if ($book->getDescription() !== null): ?>
 
         <p>

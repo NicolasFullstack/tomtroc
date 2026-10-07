@@ -48,6 +48,25 @@ public function addUser(
     ]);
 }
 
+public function getUserById(int $id): ?User
+{
+    $query = $this->pdo->prepare(
+        'SELECT * FROM users WHERE id = :id'
+    );
+
+    $query->execute([
+        'id' => $id
+    ]);
+
+    $data = $query->fetch(PDO::FETCH_ASSOC);
+
+    if (!$data) {
+        return null;
+    }
+
+    return $this->createUser($data);
+}
+
     private function createUser(array $data): User
     {
         $user = new User();
