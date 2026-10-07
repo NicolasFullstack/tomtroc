@@ -88,19 +88,21 @@ public function addBook(
     int $userId,
     string $title,
     string $author,
-    ?string $description
+    ?string $description,
+    ?string $photo
 ): bool
 {
     $query = $this->pdo->prepare(
-        'INSERT INTO books (user_id, title, author, description)
-         VALUES (:user_id, :title, :author, :description)'
+        'INSERT INTO books (user_id, title, author, description, photo)
+         VALUES (:user_id, :title, :author, :description, :photo)'
     );
 
     return $query->execute([
         'user_id' => $userId,
         'title' => $title,
         'author' => $author,
-        'description' => $description
+        'description' => $description,
+        'photo' => $photo
     ]);
 }
 

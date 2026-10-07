@@ -3,33 +3,57 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TomTroc</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-<header>
-    <nav>
-        <a href="index.php">Accueil</a>
-    <a href="index.php?page=books">Nos livres à l'échange</a>
+<header class="site-header">
 
-    <?php if (isset($_SESSION['user_id'])): ?>
+    <nav class="navbar">
 
-        <a href="index.php?page=account">
-    <?= htmlspecialchars($_SESSION['pseudo']) ?>
-</a>
-<a href="index.php?page=inbox">
-    Messagerie
-</a>
-        <a href="index.php?page=logout">Déconnexion</a>
+        <a class="logo" href="index.php">
+            Tom Troc
+        </a>
 
-    <?php else: ?>
+        <div class="nav-links">
 
-        <a href="index.php?page=login">Connexion</a>
-        <a href="index.php?page=register">Inscription</a>
+            <a href="index.php">Accueil</a>
 
-    <?php endif; ?>
+            <a href="index.php?page=books">
+                Nos livres à l'échange
+            </a>
+
+            <?php if (isset($_SESSION['user_id'])): ?>
+
+                <a href="index.php?page=inbox">
+                    Messagerie
+                </a>
+
+                <a href="index.php?page=account">
+                    Mon compte
+                </a>
+
+                <a href="index.php?page=logout">
+                    Déconnexion
+                </a>
+
+            <?php else: ?>
+
+                <a href="index.php?page=login">
+                    Connexion
+                </a>
+
+            <?php endif; ?>
+
+        </div>
+
     </nav>
+
 </header>
+
+<main>
 
 <main>

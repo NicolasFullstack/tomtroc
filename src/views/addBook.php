@@ -2,7 +2,9 @@
 
 <h1>Ajouter un livre</h1>
 
-<form method="POST" action="index.php?page=add-book">
+<form method="POST"
+      action="index.php?page=add-book"
+      enctype="multipart/form-data">
 
     <label for="title">Titre</label>
     <input
@@ -25,6 +27,12 @@
         id="description"
         name="description"
     ></textarea>
+
+<label for="photo">Photo du livre</label>
+<input type="file"
+       id="photo"
+       name="photo"
+       accept="image/jpeg, image/png, image/webp">
 
     <button type="submit">Ajouter le livre</button>
 

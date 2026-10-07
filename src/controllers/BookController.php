@@ -50,6 +50,31 @@ public function add(): void
         $title = trim($_POST['title'] ?? '');
         $author = trim($_POST['author'] ?? '');
         $description = trim($_POST['description'] ?? '');
+        $photo = null;
+
+if (
+    isset($_FILES['photo'])
+    && $_FILES['photo']['error'] === UPLOAD_ERR_OK
+) {
+    $allowedTypes = [
+        'image/jpeg' => 'jpg',
+        'image/png' => 'png',
+        'image/webp' => 'webp'
+    ];
+
+    $mimeType = mime_content_type($_FILES['photo']['tmp_name']);
+
+    if (isset($allowedTypes[$mimeType])) {
+        $extension = $allowedTypes[$mimeType];
+
+        $photo = uniqid() . '.' . $extension;
+
+        move_uploaded_file(
+            $_FILES['photo']['tmp_name'],
+            __DIR__ . '/../../public/uploads/' . $photo
+        );
+    }
+}
 
         if ($title !== '' && $author !== '') {
 
@@ -57,7 +82,8 @@ public function add(): void
                 (int) $_SESSION['user_id'],
                 $title,
                 $author,
-                $description !== '' ? $description : null
+                $description !== '' ? $description : null,
+                $photo
             );
 
             header('Location: index.php?page=account');
