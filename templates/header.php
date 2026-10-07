@@ -11,7 +11,22 @@
 <header>
     <nav>
         <a href="index.php">Accueil</a>
-        <a href="index.php?page=books">Nos livres à l'échange</a>
+    <a href="index.php?page=books">Nos livres à l'échange</a>
+
+    <?php if (isset($_SESSION['user_id'])): ?>
+
+        <span>
+            <?= htmlspecialchars($_SESSION['pseudo']) ?>
+        </span>
+
+        <a href="index.php?page=logout">Déconnexion</a>
+
+    <?php else: ?>
+
+        <a href="index.php?page=login">Connexion</a>
+        <a href="index.php?page=register">Inscription</a>
+
+    <?php endif; ?>
     </nav>
 </header>
 
